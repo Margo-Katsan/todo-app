@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 export const metadata: Metadata = {
   title: "Todo App",
@@ -14,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        {children}
+        <Provider store={store}>{children}</Provider>
       </body>
     </html>
   );

@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  resolve: {
+    alias: {
+      "@components": "/src/app/components",
+      "@store": "/src/app/store",
+      "@hooks": "/src/app/hooks",
+    },
+  },
 };
 
 export default nextConfig;

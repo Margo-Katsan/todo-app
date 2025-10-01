@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@plugin "daisyui";
 
 :root {
   --background: #ffffff;
@@ -11,4 +14,3 @@
     --foreground: #ededed;
   }
 }
-
