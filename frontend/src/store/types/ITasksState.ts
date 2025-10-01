@@ -1,4 +1,4 @@
-import { ITask } from "@/app/types/ITask";
+import { ITask } from "@/types/ITask";
 
 export interface ITasksState {
   items: ITask[];

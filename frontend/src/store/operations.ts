@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ITask } from "../types/ITask";
+import { ITask } from "@/types/ITask";
 import { IFetchTasksParams } from "./types/IFetchTasksParams";
 import { IAddTaskData } from "./types/IAddTaskData";
 import { IToggleCompletedData } from "./types/IToggleCompletedData";

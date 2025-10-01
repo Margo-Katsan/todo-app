@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchTasks, addTask, deleteTask, toggleCompleted } from "./operations";
 import { handlePending, handleRejected } from "./handlers";
 import { ITasksState } from "./types/ITasksState";
-import { ITask } from "../types/ITask";
+import { ITask } from "@/types/ITask";
 
 const handleFetchTasksFulfilled = (
   state: ITasksState,
