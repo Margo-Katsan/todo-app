@@ -16,7 +16,7 @@ import { IFetchTasksParams } from '@/store/types/IFetchTasksParams';
 
 const TaskList = () => {
   const dispatch = useAppDispatch();
-  const tasks = useAppSelector(selectTasks);
+  const tasks = useAppSelector(selectTasks) ?? [];
   const order = useAppSelector(selectOrder);
   const sort = useAppSelector(selectSort);
   const search = useAppSelector(selectSearch);
@@ -33,7 +33,6 @@ const TaskList = () => {
           ? { is_done: true }
           : {}),
     };
-    console.log(paramsForFetch);
     dispatch(fetchTasks(paramsForFetch));
   }, [dispatch, sort, order, search, status]);
   return (

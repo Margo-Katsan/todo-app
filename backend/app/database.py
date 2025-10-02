@@ -8,7 +8,7 @@ env_path = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(env_path)
 
 uri = os.getenv("MONGO_URI")
-client = MongoClient(uri, server_api=ServerApi('1'))
+client = MongoClient(uri, server_api=ServerApi('1'), tls=True)
 
 db = client.todo_db
 collection = db["tasks"]
