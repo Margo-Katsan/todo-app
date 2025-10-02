@@ -6,15 +6,16 @@ import TaskControls from '@/components/TaskControls';
 import TasksSection from '@/components/TasksSection';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { cn } from '@/utils/cn';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
       <header className="p-[22px]">
         <div className={cn('container', 'align-center flex justify-between')}>
-          <a className="text-[20px] font-bold" href="/">
+          <Link className="text-[20px] font-bold" href="/">
             To<span className="text-primary-content">Do</span>
-          </a>
+          </Link>
           <ThemeSwitcher />
         </div>
       </header>
