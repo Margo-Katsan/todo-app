@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from .database import collection 
 from .schemas import all_tasks, TaskStatusUpdate
 from .models import Task
@@ -6,6 +7,15 @@ from bson.objectid import ObjectId
 from typing import Optional
 
 app = FastAPI()
+
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=["*"], 
+  allow_credentials=True,
+  allow_methods=["*"], 
+  allow_headers=["*"], 
+)
+
 router = APIRouter()
 
 @router.get("/")
@@ -42,8 +52,12 @@ async def get_all_tasks(
 @router.post("/")
 async def create_task(new_task :Task):
   try:
-    resp = collection.insert_one(dict(new_task))
-    return {"status_code": 200, "id": str(resp.inserted_id)}
+    resp = collection.insert_one(new_task.model_dump())
+    inserted_task = {
+      "id": str(resp.inserted_id),
+      **new_task.model_dump()
+    }
+    return inserted_task
   except Exception as e:
     return HTTPException(status_code=500, detail=f"Some error occured {e}")
   
@@ -51,10 +65,21 @@ async def create_task(new_task :Task):
 async def update_task(task_id:str, updated_data:TaskStatusUpdate):
   try:
     id = ObjectId(task_id)
-    resp = collection.update_one({"_id": id}, {"$set": {"is_done": updated_data.is_done}})
+    resp = collection.update_one(
+      {"_id": id},
+      {"$set": {"is_done": updated_data.is_done}}
+    )
+
     if resp.matched_count == 0:
       raise HTTPException(status_code=404, detail="Task not found")
-    return {"status_code": 200, "message": "Task Updated Successfully"}
+
+    updated_doc = collection.find_one({"_id": id})
+    if updated_doc:
+      updated_task = Task(**{k: v for k, v in updated_doc.items() if k != "_id"})
+    return {
+      "id": str(updated_doc["_id"]),
+      **updated_task.model_dump()
+    }
   except Exception as e:
     return HTTPException(status_code=500, detail={"Some error occured {e}"})
   
@@ -62,10 +87,19 @@ async def update_task(task_id:str, updated_data:TaskStatusUpdate):
 async def delete_task(task_id:str):
   try:
     id = ObjectId(task_id)
+    task_doc = collection.find_one({"_id": id})
+    if not task_doc:
+      raise HTTPException(status_code=404, detail="Task not found")
+
     resp = collection.delete_one({"_id": id})
     if resp.deleted_count == 0:
       raise HTTPException(status_code=404, detail="Task not found")
-    return {"status_code": 200, "message": "Task Deleted Successfully"}
+
+    deleted_task = Task(**{k: v for k, v in task_doc.items() if k != "_id"})
+    return {
+      "id": str(task_doc["_id"]),
+      **deleted_task.model_dump()
+    }
   except Exception as e:
     return HTTPException(status_code=500, detail={"Some error occured {e}"})
 

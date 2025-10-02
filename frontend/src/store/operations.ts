@@ -1,19 +1,20 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { ITask } from "@/types/ITask";
-import { IFetchTasksParams } from "./types/IFetchTasksParams";
-import { IAddTaskData } from "./types/IAddTaskData";
-import { IToggleCompletedData } from "./types/IToggleCompletedData";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-axios.defaults.baseURL = "http://127.0.0.1:8000";
+import { IAddTaskData } from './types/IAddTaskData';
+import { IFetchTasksParams } from './types/IFetchTasksParams';
+import { IToggleCompletedData } from './types/IToggleCompletedData';
+import { ITask } from '@/types/ITask';
+
+axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 export const fetchTasks = createAsyncThunk<
   ITask[],
   IFetchTasksParams,
   { rejectValue: string }
->("tasks/fetchAll", async (params, thunkAPI) => {
+>('tasks/fetchAll', async (params, thunkAPI) => {
   try {
-    const response = await axios.get<ITask[]>("/", {
+    const response = await axios.get<ITask[]>('/', {
       params,
     });
     return response.data;
@@ -26,9 +27,9 @@ export const addTask = createAsyncThunk<
   ITask,
   IAddTaskData,
   { rejectValue: string }
->("tasks/addTask", async (newTask, thunkAPI) => {
+>('tasks/addTask', async (newTask, thunkAPI) => {
   try {
-    const response = await axios.post("/", newTask);
+    const response = await axios.post('/', newTask);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue((e as Error).message);
@@ -39,7 +40,7 @@ export const deleteTask = createAsyncThunk<
   ITask,
   { taskId: string | undefined },
   { rejectValue: string }
->("tasks/deleteTask", async ({ taskId }, thunkAPI) => {
+>('tasks/deleteTask', async ({ taskId }, thunkAPI) => {
   try {
     const response = await axios.delete(`/${taskId}`);
     return response.data;
@@ -52,10 +53,10 @@ export const toggleCompleted = createAsyncThunk<
   ITask,
   IToggleCompletedData,
   { rejectValue: string }
->("tasks/toggleCompleted", async (toggleCompletedData, thunkAPI) => {
+>('tasks/toggleCompleted', async ({ id, is_done }, thunkAPI) => {
   try {
-    const response = await axios.patch(`/${toggleCompletedData.id}`, {
-      is_done: !toggleCompletedData.is_done,
+    const response = await axios.patch(`/${id}`, {
+      is_done: !is_done,
     });
     return response.data;
   } catch (e) {

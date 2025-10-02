@@ -5,7 +5,7 @@ def individual_data(task):
     "id": str(task["_id"]),
     "title": str(task["title"]),
     "description": str(task["description"]),
-    "is_done": str(task["is_done"]),
+    "is_done": bool(task["is_done"]),
     "priority": int(task["priority"])
   }
 

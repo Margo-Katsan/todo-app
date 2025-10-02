@@ -1,12 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchTasks, addTask, deleteTask, toggleCompleted } from "./operations";
-import { handlePending, handleRejected } from "./handlers";
-import { ITasksState } from "./types/ITasksState";
-import { ITask } from "@/types/ITask";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { handlePending, handleRejected } from './handlers';
+import { addTask, deleteTask, fetchTasks, toggleCompleted } from './operations';
+import { ITasksState } from './types/ITasksState';
+import { ITask } from '@/types/ITask';
 
 const handleFetchTasksFulfilled = (
   state: ITasksState,
-  action: PayloadAction<ITask[]>,
+  action: PayloadAction<ITask[]>
 ) => {
   state.isLoading = false;
   state.error = null;
@@ -15,7 +16,7 @@ const handleFetchTasksFulfilled = (
 
 const handleAddTaskFulfilled = (
   state: ITasksState,
-  action: PayloadAction<ITask>,
+  action: PayloadAction<ITask>
 ) => {
   state.isLoading = false;
   state.error = null;
@@ -24,33 +25,33 @@ const handleAddTaskFulfilled = (
 
 const handleDeleteTaskFulfilled = (
   state: ITasksState,
-  action: PayloadAction<ITask>,
+  action: PayloadAction<ITask>
 ) => {
   state.isLoading = false;
   state.error = null;
-  const index = state.items.findIndex((task) => task.id === action.payload.id);
+  const index = state.items.findIndex(task => task.id === action.payload.id);
   state.items.splice(index, 1);
 };
 
 const handleToggleCompletedFulfilled = (
   state: ITasksState,
-  action: PayloadAction<ITask>,
+  action: PayloadAction<ITask>
 ) => {
   state.isLoading = false;
   state.error = null;
-  const index = state.items.findIndex((task) => task.id === action.payload.id);
+  const index = state.items.findIndex(task => task.id === action.payload.id);
   state.items.splice(index, 1, action.payload);
 };
 
 const tasksSlice = createSlice({
-  name: "tasks",
+  name: 'tasks',
   initialState: {
     items: [],
     isLoading: false,
     error: null,
   } as ITasksState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(fetchTasks.pending, handlePending)
       .addCase(fetchTasks.fulfilled, handleFetchTasksFulfilled)

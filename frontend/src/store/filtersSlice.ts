@@ -1,20 +1,32 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { StatusFilter, statusFilters } from "./constants";
-import { IFiltersState } from "./types/IFiltersState";
+import { createSlice } from '@reduxjs/toolkit';
+
+import { statusFilters } from './constants';
+import { IFiltersState } from './types/IFiltersState';
 
 const filtersInitialState: IFiltersState = {
   status: statusFilters.all,
+  sort: '',
+  order: '',
+  search: '',
 };
 
 const filtersSlice = createSlice({
-  name: "filters",
+  name: 'filters',
   initialState: filtersInitialState,
   reducers: {
-    setStatusFilter(state: IFiltersState, action: PayloadAction<StatusFilter>) {
+    setSearch(state: IFiltersState, action) {
+      state.search = action.payload;
+    },
+    setSortByAndOrder(state: IFiltersState, action) {
+      state.sort = 'priority';
+      state.order = action.payload;
+    },
+    setStatusFilter(state: IFiltersState, action) {
       state.status = action.payload;
     },
   },
 });
 
-export const { setStatusFilter } = filtersSlice.actions;
+export const { setStatusFilter, setSortByAndOrder, setSearch } =
+  filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;
