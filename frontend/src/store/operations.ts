@@ -6,7 +6,7 @@ import { IFetchTasksParams } from './types/IFetchTasksParams';
 import { IToggleCompletedData } from './types/IToggleCompletedData';
 import { ITask } from '@/types/ITask';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.baseURL = 'https://todo-app-3ys1.onrender.com';
 
 export const fetchTasks = createAsyncThunk<
   ITask[],
