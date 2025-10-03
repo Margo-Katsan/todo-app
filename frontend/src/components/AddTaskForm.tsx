@@ -1,4 +1,4 @@
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import FormContent from './FormContent';
@@ -17,7 +17,7 @@ const AddTaskForm = () => {
   const dispatch = useAppDispatch();
   const tasks = useAppSelector(selectTasks);
 
-  const handleSubmitForm = (values: Omit<ITask, 'id'>) => {
+  const handleSubmitForm = (values: Omit<ITask, 'id'>, actions: FormikHelpers<Omit<ITask, 'id'>>) => {
     const isTaskExist =
       tasks.filter(task => task.title === values.title).length !== 0;
     if (isTaskExist) {
@@ -32,6 +32,7 @@ const AddTaskForm = () => {
     if (modal) {
       modal.close();
     }
+    actions.resetForm();
   };
 
   return (
@@ -49,7 +50,7 @@ const AddTaskForm = () => {
         <FormContent />
 
         <button
-          className="btn bg-base-content text-base-100 w-full rounded-[22px]"
+          className="btn bg-primary text-base-100 w-full rounded-[22px]"
           type="submit"
         >
           Add task

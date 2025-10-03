@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
       {isLoading && !error && <Loader />}
-      {error && <Error />}
+      {error && !isLoading && <Error />}
       <header className="py-[22px]">
         <div
           className={cn(
