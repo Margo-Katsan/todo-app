@@ -50,7 +50,7 @@ const AddTaskForm = () => {
         <FormContent />
 
         <button
-          className="btn bg-primary text-base-100 w-full rounded-[22px]"
+          className="btn bg-base-content text-base-100 w-full rounded-[22px]"
           type="submit"
         >
           Add task
