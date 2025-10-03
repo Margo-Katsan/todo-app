@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import clsx from 'clsx';
 
-import { Status } from '@/enums/Status';
+import { type StatusFilter } from '@/store/constants';
 import { setStatusFilter } from '@/store/filtersSlice';
 import { selectStatusFilter } from '@/store/selectors';
 
 export interface StatusLabelProps {
   children: React.ReactNode;
-  status: Status;
+  status: StatusFilter;
   disabled?: boolean;
 }
 
@@ -16,7 +16,7 @@ const StatusFilter = ({ children, status, disabled }: StatusLabelProps) => {
   const dispatch = useDispatch();
   const statusFilter = useSelector(selectStatusFilter);
 
-  const handleStatusFilterChange = (statusFilter: Status) =>
+  const handleStatusFilterChange = (statusFilter: StatusFilter) =>
     dispatch(setStatusFilter(statusFilter));
 
   return (

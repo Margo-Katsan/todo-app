@@ -1,5 +1,5 @@
 export const statusFilters = {
-  all: 'all',
+  all: '',
   active: 'active',
   completed: 'completed',
 } as const;

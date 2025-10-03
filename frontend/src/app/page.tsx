@@ -24,6 +24,7 @@ export default function Home() {
   const status = useAppSelector(selectStatusFilter);
   const search = useAppSelector(selectSearch);
   const tasks = useAppSelector(selectTasks) ?? [];
+  
   return (
     <>
       {isLoading && !error && <Loader />}
@@ -42,7 +43,7 @@ export default function Home() {
         </div>
       </header>
       <main>
-        {tasks.length === 0 && (!status) && !search ? (
+        {tasks.length === 0 && !status && !search ? (
           <EmptyTasks />
         ) : (
           <MainApp />

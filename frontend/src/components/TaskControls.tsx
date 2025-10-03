@@ -7,7 +7,7 @@ const TaskControls = () => {
     <>
       <SortBy />
       <div className="mb-[8px] flex gap-[4px]">
-        <StatusFilter status={Status.All}>All</StatusFilter>
+        <StatusFilter status={''}>All</StatusFilter>
         <StatusFilter status={Status.Active}>Active</StatusFilter>
         <StatusFilter status={Status.Completed}>Complited</StatusFilter>
       </div>

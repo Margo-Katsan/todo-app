@@ -8,7 +8,8 @@ const EmptyTasks = () => {
           <div className="mb-[28px]">
             <p className="mb-2 text-xl font-semibold">No tasks yet</p>
             <p className="text-sm text-gray-500">
-              You haven&apos;t added any tasks. Click &quot;Add new task&quot; to get started!
+              You haven&apos;t added any tasks. Click &quot;Add new task&quot;
+              to get started!
             </p>
           </div>
 
