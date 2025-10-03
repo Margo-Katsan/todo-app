@@ -12,18 +12,14 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import {
   selectError,
   selectIsLoading,
-  selectSearch,
-  selectStatusFilter,
-  selectTasks,
+  selectTotal,
 } from '@/store/selectors';
 import { cn } from '@/utils/cn';
 
 export default function Home() {
   const isLoading = useAppSelector(selectIsLoading);
+  const total = useAppSelector(selectTotal);
   const error = useAppSelector(selectError);
-  const status = useAppSelector(selectStatusFilter);
-  const search = useAppSelector(selectSearch);
-  const tasks = useAppSelector(selectTasks) ?? [];
   
   return (
     <>
@@ -43,7 +39,7 @@ export default function Home() {
         </div>
       </header>
       <main>
-        {tasks.length === 0 && !status && !search ? (
+        {total === 0 ? (
           <EmptyTasks />
         ) : (
           <MainApp />

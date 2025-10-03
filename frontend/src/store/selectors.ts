@@ -5,6 +5,8 @@ import { RootState } from './store';
 
 export const selectTasks = (state: RootState) => state.tasks.items;
 
+export const selectTotal = (state: RootState) => state.tasks.total;
+
 export const selectIsLoading = (state: RootState) => state.tasks.isLoading;
 
 export const selectError = (state: RootState) => state.tasks.error;

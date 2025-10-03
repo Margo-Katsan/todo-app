@@ -40,11 +40,18 @@ async def get_all_tasks(
       sort_params = [(sort, direction)]
 
     cursor = collection.find(query)
+
     if sort_params:
       cursor = cursor.sort(sort_params)
     
+    total_tasks = collection.count_documents({})
+    
     data = list(cursor)
-    return all_tasks(data)
+
+    return {
+      "tasks": all_tasks(data),
+      "total": total_tasks
+    }
   
   except Exception as e:
     return HTTPException(status_code=500, detail=f"Some error occured {e}")
@@ -57,7 +64,14 @@ async def create_task(new_task :Task):
       "id": str(resp.inserted_id),
       **new_task.model_dump()
     }
-    return inserted_task
+
+    total_tasks = collection.count_documents({})
+
+    return {
+      "task": inserted_task,
+      "total": total_tasks
+    }
+
   except Exception as e:
     return HTTPException(status_code=500, detail=f"Some error occured {e}")
   
@@ -96,10 +110,17 @@ async def delete_task(task_id:str):
       raise HTTPException(status_code=404, detail="Task not found")
 
     deleted_task = Task(**{k: v for k, v in task_doc.items() if k != "_id"})
+
+    total_tasks = collection.count_documents({})
+
     return {
-      "id": str(task_doc["_id"]),
-      **deleted_task.model_dump()
+      "task": {
+        "id": str(task_doc["_id"]),
+        **deleted_task.model_dump()
+      },
+      "total": total_tasks
     }
+
   except Exception as e:
     return HTTPException(status_code=500, detail={"Some error occured {e}"})
 

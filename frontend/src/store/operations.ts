@@ -5,19 +5,20 @@ import { IAddTaskData } from './types/IAddTaskData';
 import { IFetchTasksParams } from './types/IFetchTasksParams';
 import { IToggleCompletedData } from './types/IToggleCompletedData';
 import { ITask } from '@/types/ITask';
+import { IFetchTasksResponse } from './types/IFetchTasksResponse';
+import { IAddOrDelTaskResponse } from './types/IAddOrDelTaskResponse';
 
 axios.defaults.baseURL = 'https://todo-app-3ys1.onrender.com';
 
 export const fetchTasks = createAsyncThunk<
-  ITask[],
+  IFetchTasksResponse,
   IFetchTasksParams,
   { rejectValue: string }
 >('tasks/fetchAll', async (params, thunkAPI) => {
   try {
-    const response = await axios.get<ITask[]>('/', {
+    const response = await axios.get<IFetchTasksResponse>('/', {
       params,
     });
-    console.log(response.data);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue((e as Error).message);
@@ -25,13 +26,12 @@ export const fetchTasks = createAsyncThunk<
 });
 
 export const addTask = createAsyncThunk<
-  ITask,
+  IAddOrDelTaskResponse,
   IAddTaskData,
   { rejectValue: string }
 >('tasks/addTask', async (newTask, thunkAPI) => {
   try {
-    const response = await axios.post('/', newTask);
-    console.log(response.data);
+    const response = await axios.post<IAddOrDelTaskResponse>('/', newTask);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue((e as Error).message);
@@ -39,12 +39,12 @@ export const addTask = createAsyncThunk<
 });
 
 export const deleteTask = createAsyncThunk<
-  ITask,
+  IAddOrDelTaskResponse,
   { taskId: string | undefined },
   { rejectValue: string }
 >('tasks/deleteTask', async ({ taskId }, thunkAPI) => {
   try {
-    const response = await axios.delete(`/${taskId}`);
+    const response = await axios.delete<IAddOrDelTaskResponse>(`/${taskId}`);
     return response.data;
   } catch (e) {
     return thunkAPI.rejectWithValue((e as Error).message);
