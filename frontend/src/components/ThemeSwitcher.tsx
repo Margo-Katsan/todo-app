@@ -26,7 +26,7 @@ export const ThemeSwitcher = () => {
   const activeTheme = themes.find(t => t.name === currentTheme);
 
   return (
-    <div className="dropdown dropdown-center">
+    <div className="dropdown dropdown-bottom dropdown-end">
       <div
         tabIndex={0}
         role="button"
