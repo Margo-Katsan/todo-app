@@ -9,5 +9,5 @@ export const handleRejected = <T>(
   action: PayloadAction<string | undefined>
 ) => {
   state.isLoading = false;
-  state.error = action.payload ?? null;
+  state.error = action.payload || 'Something went wrong';
 };

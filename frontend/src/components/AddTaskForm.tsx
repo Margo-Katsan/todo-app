@@ -26,6 +26,12 @@ const AddTaskForm = () => {
     }
 
     dispatch(addTask(values));
+    const modal = document.getElementById(
+      'my_modal_1'
+    ) as HTMLDialogElement | null;
+    if (modal) {
+      modal.close();
+    }
   };
 
   return (

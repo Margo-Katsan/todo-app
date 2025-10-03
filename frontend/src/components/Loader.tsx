@@ -1,21 +1,9 @@
-import { ThreeDots } from 'react-loader-spinner';
-
 export const Loader = () => {
   return (
-    <ThreeDots 
-      height="80" 
-      width="80" 
-      radius="9"
-      color="var(--accent-color)" 
-      ariaLabel="three-dots-loading"
-      visible={true}
-      wrapperStyle={{
-        position: 'fixed',
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%,-50%)',
-        zIndex: '5',
-      }}
-    />
-  )
-}
+    <div className="fixed top-1/2 left-1/2 z-5 -translate-x-1/2 -translate-y-1/2">
+      <span className="loading loading-ring loading-md"></span>
+      <span className="loading loading-ring loading-lg"></span>
+      <span className="loading loading-ring loading-xl"></span>
+    </div>
+  );
+};

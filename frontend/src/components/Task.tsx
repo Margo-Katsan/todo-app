@@ -30,11 +30,11 @@ const Task: FC<ITaskProps> = ({ task }) => {
         type="checkbox"
         checked={is_done}
         onChange={handleToggle}
-        className="checkbox border-base-content checked:bg-base-content checked:text-base-100 absolute top-[16px] right-[16px]"
+        className="checkbox border-base-content checked:bg-base-content checked:text-base-100 absolute top-[16px] right-[16px] rounded-full"
       />
 
       <button
-        className="absolute right-[16px] bottom-[16px]"
+        className="absolute right-[16px] bottom-[16px] cursor-pointer"
         onClick={handleDelete}
       >
         <MdDelete size={24} color="var(--priority-text-color)" />

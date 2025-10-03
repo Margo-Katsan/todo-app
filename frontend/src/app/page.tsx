@@ -1,51 +1,52 @@
 'use client';
 
-import ControlSection from '@/components/ControlSection';
+import Link from 'next/link';
+
+import EmptyTasks from '@/components/EmptyTasks';
 import Error from '@/components/Error';
 import { Loader } from '@/components/Loader';
+import MainApp from '@/components/MainApp';
 import Modal from '@/components/Modal';
-import TaskControls from '@/components/TaskControls';
-import TasksSection from '@/components/TasksSection';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import { selectError, selectIsLoading } from '@/store/selectors';
+import {
+  selectError,
+  selectIsLoading,
+  selectSearch,
+  selectStatusFilter,
+  selectTasks,
+} from '@/store/selectors';
 import { cn } from '@/utils/cn';
-import Link from 'next/link';
 
 export default function Home() {
   const isLoading = useAppSelector(selectIsLoading);
-    const error = useAppSelector(selectError);
+  const error = useAppSelector(selectError);
+  const status = useAppSelector(selectStatusFilter);
+  const search = useAppSelector(selectSearch);
+  const tasks = useAppSelector(selectTasks) ?? [];
   return (
     <>
-    {isLoading && !error && <Loader />}
-    {error && <Error />}
-      <header className="p-[22px]">
-        <div className={cn('container', 'align-center flex justify-between')}>
+      {isLoading && !error && <Loader />}
+      {error && <Error />}
+      <header className="py-[22px]">
+        <div
+          className={cn(
+            'container',
+            'align-center flex justify-between lg:justify-around'
+          )}
+        >
           <Link className="text-[20px] font-bold" href="/">
-            To<span className="text-primary-content">Do</span>
+            To<span className="text-accent">Do</span>
           </Link>
           <ThemeSwitcher />
         </div>
       </header>
       <main>
-        <h1 className="sr-only">Todo App</h1>
-        <div
-          className={cn(
-            'md:container',
-            'md:m-auto md:flex md:justify-center md:gap-[18px] lg:gap-[24px]'
-          )}
-        >
-          <div>
-            <ControlSection />
-            <TasksSection />
-          </div>
-
-          <div className="hidden md:block">
-            <div>
-              <TaskControls />
-            </div>
-          </div>
-        </div>
+        {tasks.length === 0 && (!status) && !search ? (
+          <EmptyTasks />
+        ) : (
+          <MainApp />
+        )}
       </main>
       <Modal />
     </>
