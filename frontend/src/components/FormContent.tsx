@@ -2,7 +2,7 @@ import { ErrorMessage, Field } from 'formik';
 
 const FormContent = () => {
   return (
-    <div className="mb-[12px]">
+    <div className="mb-[28px] flex flex-col gap-[12px]">
       <label>
         <span>
           Title<span style={{ color: 'var(--accent-color)' }}> *</span>
@@ -33,7 +33,7 @@ const FormContent = () => {
           <span style={{ color: 'var(--accent-color)' }}> *</span>
         </span>
 
-        <div className="w-full max-w-xs">
+        <div className="w-full max-w-md md:max-w-lg">
           <Field
             name="priority"
             type="range"
