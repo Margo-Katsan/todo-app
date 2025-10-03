@@ -52,7 +52,7 @@ const tasksSlice = createSlice({
   name: 'tasks',
   initialState: {
     items: [],
-    total: 0,
+    total: null,
     isLoading: false,
     error: null,
   } as ITasksState,

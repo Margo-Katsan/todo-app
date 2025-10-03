@@ -2,7 +2,7 @@ import { ITask } from '@/types/ITask';
 
 export interface ITasksState {
   items: ITask[];
-  total: number;
+  total: null | number;
   isLoading: boolean;
   error: string | null;
 }

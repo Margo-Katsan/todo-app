@@ -39,7 +39,7 @@ export default function Home() {
         </div>
       </header>
       <main>
-        {total === 0 ? (
+        {(total === 0 && !isLoading) ? (
           <EmptyTasks />
         ) : (
           <MainApp />
